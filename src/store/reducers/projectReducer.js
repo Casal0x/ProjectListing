@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 const initState = {
     projects: [
         {id: '1', title: 'help me find peach', content: 'blah blah blah'},
@@ -7,7 +8,17 @@ const initState = {
 };
 
 const projectReducer = (state = initState, action) => {
-    return state;
+    switch (action.type) {
+        case 'CREATE_PROJECT':
+            console.log('project created', action.project);            
+            return state;
+
+        case 'CREATE_PROJECT_ERROR':
+                console.log('error', action.err);
+                return state;
+        default:
+            return state;
+        }
 };
 
 export default projectReducer;
