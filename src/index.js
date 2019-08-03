@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+// import * as serviceWorker from './serviceWorker';
+import registerServiceWorker from './registerServiceWorker';
 
 //redux
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -17,12 +18,12 @@ import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 
 const store = createStore(rootReducer,
     compose(
-     applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
-     reduxFirestore(fbConfig),
-     reactReduxFirebase(fbConfig)
-     )
-    );
+      applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
+      reactReduxFirebase(fbConfig), // redux binding for firebase
+      reduxFirestore(fbConfig) // redux bindings for firestore
+    )
+  );
 
-ReactDOM.render(<Provider store={store}> <App /> </Provider>, document.getElementById('root'));
 
-serviceWorker.unregister();
+  ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+  registerServiceWorker();
